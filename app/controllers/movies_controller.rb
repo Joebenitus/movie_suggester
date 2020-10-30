@@ -1,7 +1,12 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all
-    json_response(@movies)
+    if params[:title]
+      @movies = Movie.search(params[:title])
+      json_response(@movies)
+    else
+      @movies = Movie.all
+      json_response(@movies)
+    end
   end
 
   def show
