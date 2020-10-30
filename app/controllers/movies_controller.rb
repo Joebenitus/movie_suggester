@@ -39,6 +39,11 @@ class MoviesController < ApplicationController
     @movie.destroy
   end
 
+  def random
+    @movies = Movie.all
+    json_response(@movies.sample)
+  end
+
   private
   def movie_params
     params.permit(:title)
