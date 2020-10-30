@@ -11,12 +11,16 @@ class MoviesController < ApplicationController
 
   def create
     @movie = Movie.create!(movie_params)
-    json_response(@movie)
+    json_response(@movie, :created)
   end
 
   def update
     @movie = Movie.find(params[:id])
-    @movie.update(movie_params)
+    if @movie.update!(movie_params)
+      render status: 200, json: {
+        message: "Movie title updated successfully"
+      }
+    end
   end
 
   def destroy
