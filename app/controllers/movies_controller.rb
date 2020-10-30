@@ -2,7 +2,13 @@ class MoviesController < ApplicationController
   def index
     if params[:title]
       @movies = Movie.search(params[:title])
-      json_response(@movies)
+      if @movies.blank?
+        render status: 404, json: {
+          message: "No movies found with title: #{params[:title]}"
+        }
+      else
+        json_response(@movies)
+      end
     else
       @movies = Movie.all
       json_response(@movies)
