@@ -10,7 +10,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
-require "rate-limiting"
+require "rate_limiting"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -32,5 +32,9 @@ module MovieSuggester
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.middleware.use RateLimiting do |r|
+      r.define_rule( :match => '/movies', :type => :fixed, :metric => :rpm, :limit => 5 )
+    end
   end
 end
