@@ -45,7 +45,7 @@ Feel free to reach out to me on github or make a pull request!
 ## Additional notes
 This API is rate-limited to 5 calls per minute by default. You can change this by either adjusting the value of the `limit` key or by commenting/deleting the following code block entirely.
 
-```
+```ruby
   #movie_suggester/config/application.rb
 
   config.middleware.use RateLimiting do |r|
